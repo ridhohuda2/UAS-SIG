@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Fisik_Alam_Jenis_Tanah_Kaligesing_1.js"></script>
+        <script src="data/Transportasi_Kecamatan_Kaligesing_LN_2.js"></script>
+        <script src="data/Ibu_Kota_Kecamatan_Kaligesing_PT_3.js"></script>
+        <script src="data/Batas_Administrasi_Kecamatan_Kaligesing_AR_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-7.795275227894109,110.00621938599969],[-7.670168945544286,110.20786894941082]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_BasemapGoogleEarth_0');
+        map.getPane('pane_BasemapGoogleEarth_0').style.zIndex = 400;
+        var layer_BasemapGoogleEarth_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_BasemapGoogleEarth_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_BasemapGoogleEarth_0;
+        map.addLayer(layer_BasemapGoogleEarth_0);
+        function pop_Fisik_Alam_Jenis_Tanah_Kaligesing_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID_JENIS_'] !== null ? autolinker.link(feature.properties['FID_JENIS_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['JNS_TNH'] !== null ? autolinker.link(feature.properties['JNS_TNH'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUMBER'] !== null ? autolinker.link(feature.properties['SUMBER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID_Kecama'] !== null ? autolinker.link(feature.properties['FID_Kecama'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDEBPS'] !== null ? autolinker.link(feature.properties['KDEBPS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDEPUM'] !== null ? autolinker.link(feature.properties['KDEPUM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PROVINSI'] !== null ? autolinker.link(feature.properties['PROVINSI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KABUPATEN'] !== null ? autolinker.link(feature.properties['KABUPATEN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KECAMATAN'] !== null ? autolinker.link(feature.properties['KECAMATAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESA'] !== null ? autolinker.link(feature.properties['DESA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUMBER_1'] !== null ? autolinker.link(feature.properties['SUMBER_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KELURAHAN_'] !== null ? autolinker.link(feature.properties['KELURAHAN_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Luas_Ha'] !== null ? autolinker.link(feature.properties['Luas_Ha'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Fisik_Alam_Jenis_Tanah_Kaligesing_1_0(feature) {
+            switch(String(feature.properties['JNS_TNH'])) {
+                case 'Latosol  Coklat Tua':
+                    return {
+                pane: 'pane_Fisik_Alam_Jenis_Tanah_Kaligesing_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(154,81,65,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Latosol Merah Kuning':
+                    return {
+                pane: 'pane_Fisik_Alam_Jenis_Tanah_Kaligesing_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,87,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Fisik_Alam_Jenis_Tanah_Kaligesing_1');
+        map.getPane('pane_Fisik_Alam_Jenis_Tanah_Kaligesing_1').style.zIndex = 401;
+        map.getPane('pane_Fisik_Alam_Jenis_Tanah_Kaligesing_1').style['mix-blend-mode'] = 'normal';
+        var layer_Fisik_Alam_Jenis_Tanah_Kaligesing_1 = new L.geoJson(json_Fisik_Alam_Jenis_Tanah_Kaligesing_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Fisik_Alam_Jenis_Tanah_Kaligesing_1',
+            layerName: 'layer_Fisik_Alam_Jenis_Tanah_Kaligesing_1',
+            pane: 'pane_Fisik_Alam_Jenis_Tanah_Kaligesing_1',
+            onEachFeature: pop_Fisik_Alam_Jenis_Tanah_Kaligesing_1,
+            style: style_Fisik_Alam_Jenis_Tanah_Kaligesing_1_0,
+        });
+        bounds_group.addLayer(layer_Fisik_Alam_Jenis_Tanah_Kaligesing_1);
+        map.addLayer(layer_Fisik_Alam_Jenis_Tanah_Kaligesing_1);
+        function pop_Transportasi_Kecamatan_Kaligesing_LN_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lebar'] !== null ? autolinker.link(feature.properties['Lebar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fungsi_Jln'] !== null ? autolinker.link(feature.properties['Fungsi_Jln'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nama_Jln_1'] !== null ? autolinker.link(feature.properties['Nama_Jln_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Transportasi_Kecamatan_Kaligesing_LN_2_0(feature) {
+            switch(String(feature.properties['Fungsi_Jln'])) {
+                case 'Jalan Kolektor Sekunder':
+                    return {
+                pane: 'pane_Transportasi_Kecamatan_Kaligesing_LN_2',
+                opacity: 1,
+                color: 'rgba(226,207,109,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Jalan Lokal Primer':
+                    return {
+                pane: 'pane_Transportasi_Kecamatan_Kaligesing_LN_2',
+                opacity: 1,
+                color: 'rgba(231,59,176,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Jalan Lokal Sekunder':
+                    return {
+                pane: 'pane_Transportasi_Kecamatan_Kaligesing_LN_2',
+                opacity: 1,
+                color: 'rgba(72,98,213,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Transportasi_Kecamatan_Kaligesing_LN_2');
+        map.getPane('pane_Transportasi_Kecamatan_Kaligesing_LN_2').style.zIndex = 402;
+        map.getPane('pane_Transportasi_Kecamatan_Kaligesing_LN_2').style['mix-blend-mode'] = 'normal';
+        var layer_Transportasi_Kecamatan_Kaligesing_LN_2 = new L.geoJson(json_Transportasi_Kecamatan_Kaligesing_LN_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Transportasi_Kecamatan_Kaligesing_LN_2',
+            layerName: 'layer_Transportasi_Kecamatan_Kaligesing_LN_2',
+            pane: 'pane_Transportasi_Kecamatan_Kaligesing_LN_2',
+            onEachFeature: pop_Transportasi_Kecamatan_Kaligesing_LN_2,
+            style: style_Transportasi_Kecamatan_Kaligesing_LN_2_0,
+        });
+        bounds_group.addLayer(layer_Transportasi_Kecamatan_Kaligesing_LN_2);
+        map.addLayer(layer_Transportasi_Kecamatan_Kaligesing_LN_2);
+        function pop_Ibu_Kota_Kecamatan_Kaligesing_PT_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Klasifikas'] !== null ? autolinker.link(feature.properties['Klasifikas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Jenis_Utam'] !== null ? autolinker.link(feature.properties['Jenis_Utam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Jenis'] !== null ? autolinker.link(feature.properties['Jenis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Kegiatan_O'] !== null ? autolinker.link(feature.properties['Kegiatan_O'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nama_Objek'] !== null ? autolinker.link(feature.properties['Nama_Objek'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Pemerintah'] !== null ? autolinker.link(feature.properties['Pemerintah'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Ibu_Kota_Kecamatan_Kaligesing_PT_3_0(feature) {
+            switch(String(feature.properties['Jenis_Utam'])) {
+                case 'Perkantoran':
+                    return {
+                pane: 'pane_Ibu_Kota_Kecamatan_Kaligesing_PT_3',
+                radius: 4.0,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(65,53,233,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Ibu_Kota_Kecamatan_Kaligesing_PT_3');
+        map.getPane('pane_Ibu_Kota_Kecamatan_Kaligesing_PT_3').style.zIndex = 403;
+        map.getPane('pane_Ibu_Kota_Kecamatan_Kaligesing_PT_3').style['mix-blend-mode'] = 'normal';
+        var layer_Ibu_Kota_Kecamatan_Kaligesing_PT_3 = new L.geoJson(json_Ibu_Kota_Kecamatan_Kaligesing_PT_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Ibu_Kota_Kecamatan_Kaligesing_PT_3',
+            layerName: 'layer_Ibu_Kota_Kecamatan_Kaligesing_PT_3',
+            pane: 'pane_Ibu_Kota_Kecamatan_Kaligesing_PT_3',
+            onEachFeature: pop_Ibu_Kota_Kecamatan_Kaligesing_PT_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Ibu_Kota_Kecamatan_Kaligesing_PT_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Ibu_Kota_Kecamatan_Kaligesing_PT_3);
+        map.addLayer(layer_Ibu_Kota_Kecamatan_Kaligesing_PT_3);
+        function pop_Batas_Administrasi_Kecamatan_Kaligesing_AR_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDEBPS'] !== null ? autolinker.link(feature.properties['KDEBPS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDEPUM'] !== null ? autolinker.link(feature.properties['KDEPUM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PROVINSI'] !== null ? autolinker.link(feature.properties['PROVINSI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KABUPATEN'] !== null ? autolinker.link(feature.properties['KABUPATEN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KECAMATAN'] !== null ? autolinker.link(feature.properties['KECAMATAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESA'] !== null ? autolinker.link(feature.properties['DESA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUMBER'] !== null ? autolinker.link(feature.properties['SUMBER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LAB_DESA'] !== null ? autolinker.link(feature.properties['LAB_DESA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Batas_Administrasi_Kecamatan_Kaligesing_AR_4_0() {
+            return {
+                pane: 'pane_Batas_Administrasi_Kecamatan_Kaligesing_AR_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '10,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Batas_Administrasi_Kecamatan_Kaligesing_AR_4');
+        map.getPane('pane_Batas_Administrasi_Kecamatan_Kaligesing_AR_4').style.zIndex = 404;
+        map.getPane('pane_Batas_Administrasi_Kecamatan_Kaligesing_AR_4').style['mix-blend-mode'] = 'normal';
+        var layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4 = new L.geoJson(json_Batas_Administrasi_Kecamatan_Kaligesing_AR_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Batas_Administrasi_Kecamatan_Kaligesing_AR_4',
+            layerName: 'layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4',
+            pane: 'pane_Batas_Administrasi_Kecamatan_Kaligesing_AR_4',
+            onEachFeature: pop_Batas_Administrasi_Kecamatan_Kaligesing_AR_4,
+            style: style_Batas_Administrasi_Kecamatan_Kaligesing_AR_4_0,
+        });
+        bounds_group.addLayer(layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4);
+        map.addLayer(layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Batas_Administrasi_Kecamatan_Kaligesing_AR_4.png" /> Batas_Administrasi_Kecamatan_Kaligesing_AR': layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4,'Ibu_Kota_Kecamatan_Kaligesing_PT<br /><table><tr><td style="text-align: center;"><img src="legend/Ibu_Kota_Kecamatan_Kaligesing_PT_3_Perkantoran0.png" /></td><td>Perkantoran</td></tr></table>': layer_Ibu_Kota_Kecamatan_Kaligesing_PT_3,'Transportasi_Kecamatan_Kaligesing_LN<br /><table><tr><td style="text-align: center;"><img src="legend/Transportasi_Kecamatan_Kaligesing_LN_2_JalanKolektorSekunder0.png" /></td><td>Jalan Kolektor Sekunder</td></tr><tr><td style="text-align: center;"><img src="legend/Transportasi_Kecamatan_Kaligesing_LN_2_JalanLokalPrimer1.png" /></td><td>Jalan Lokal Primer</td></tr><tr><td style="text-align: center;"><img src="legend/Transportasi_Kecamatan_Kaligesing_LN_2_JalanLokalSekunder2.png" /></td><td>Jalan Lokal Sekunder</td></tr></table>': layer_Transportasi_Kecamatan_Kaligesing_LN_2,'Fisik_Alam_Jenis_Tanah_Kaligesing<br /><table><tr><td style="text-align: center;"><img src="legend/Fisik_Alam_Jenis_Tanah_Kaligesing_1_LatosolCoklatTua0.png" /></td><td>Latosol  Coklat Tua</td></tr><tr><td style="text-align: center;"><img src="legend/Fisik_Alam_Jenis_Tanah_Kaligesing_1_LatosolMerahKuning1.png" /></td><td>Latosol Merah Kuning</td></tr></table>': layer_Fisik_Alam_Jenis_Tanah_Kaligesing_1,"Basemap Google Earth": layer_BasemapGoogleEarth_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['DESA'] !== null?String('<div style="color: #ffffff; font-size: 8pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['DESA']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Batas_Administrasi_Kecamatan_Kaligesing_AR_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Batas_Administrasi_Kecamatan_Kaligesing_AR_4]);
+        });
+        </script>
+    </body>
+</html>
